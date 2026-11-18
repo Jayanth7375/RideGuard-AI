@@ -1,0 +1,245 @@
+/* ==============================================================
+   RIDEGUARD AI — WHITE & YELLOW ENTERPRISE DESIGN SYSTEM
+   ============================================================== */
+
+/* Base Typography & Background */
+body {
+    background-color: #F8FAFC;
+    color: #0F172A;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Custom Yellow Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #EAB308;
+}
+
+/* -------------------------------------------------------------
+   COLLAPSIBLE SIDEBAR: COMPRESSED & COME OUT (DRAWER)
+   ------------------------------------------------------------- */
+#app-sidebar {
+    width: 16rem; /* w-64 */
+    background: #FFFFFF;
+    border-right: 1px solid #E2E8F0;
+    transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s ease;
+}
+
+#main-content {
+    margin-left: 16rem; /* ml-64 */
+    transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Compressed State */
+body.sidebar-compressed #app-sidebar {
+    width: 4.75rem; /* w-19 (~76px) */
+    overflow: hidden;
+}
+
+body.sidebar-compressed #main-content {
+    margin-left: 4.75rem;
+}
+
+/* Hide labels when compressed */
+body.sidebar-compressed #app-sidebar .sidebar-label,
+body.sidebar-compressed #app-sidebar .sidebar-detail,
+body.sidebar-compressed #app-sidebar .sidebar-section-title {
+    display: none !important;
+    opacity: 0;
+}
+
+/* Center icons in compressed mode */
+body.sidebar-compressed #app-sidebar .nav-link {
+    justify-content: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+body.sidebar-compressed #app-sidebar .brand-container {
+    justify-content: center !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+body.sidebar-compressed #app-sidebar .telemetry-card {
+    padding: 0.5rem !important;
+    text-align: center;
+}
+
+/* Smooth "Come Out" on Hover when Compressed */
+body.sidebar-compressed #app-sidebar:hover {
+    width: 16rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+body.sidebar-compressed #app-sidebar:hover .sidebar-label,
+body.sidebar-compressed #app-sidebar:hover .sidebar-detail,
+body.sidebar-compressed #app-sidebar:hover .sidebar-section-title {
+    display: inline-block !important;
+    opacity: 1;
+    transition: opacity 0.2s ease 0.05s;
+}
+
+body.sidebar-compressed #app-sidebar:hover .nav-link {
+    justify-content: flex-start !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+}
+
+body.sidebar-compressed #app-sidebar:hover .brand-container {
+    justify-content: flex-start !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+}
+
+body.sidebar-compressed #app-sidebar:hover .telemetry-card {
+    padding: 0.75rem !important;
+    text-align: left;
+}
+
+/* -------------------------------------------------------------
+   NAVIGATION & ACTIVE STATES (WHITE & YELLOW)
+   ------------------------------------------------------------- */
+.nav-link {
+    color: #475569;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+}
+
+.nav-link:hover {
+    background-color: #FEF08A; /* Light warm yellow */
+    color: #854D0E;            /* Dark Amber */
+}
+
+.nav-link:hover i {
+    color: #CA8A04;
+}
+
+.nav-link.active {
+    background-color: #FEF08A !important;
+    border: 1px solid #FACC15 !important;
+    color: #854D0E !important;
+    font-weight: 700 !important;
+}
+
+.nav-link.active i {
+    color: #CA8A04 !important;
+}
+
+/* -------------------------------------------------------------
+   METRIC & CONTENT CARDS
+   ------------------------------------------------------------- */
+.metric-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+}
+
+.metric-card:hover {
+    border-color: #FACC15;
+    box-shadow: 0 6px 18px rgba(234, 179, 8, 0.12);
+}
+
+.model-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+}
+
+.model-card:hover {
+    border-color: #FACC15;
+}
+
+.model-card.champion {
+    border: 2px solid #EAB308;
+    background: linear-gradient(180deg, #FEFCE8 0%, #FFFFFF 100%);
+    box-shadow: 0 6px 18px rgba(234, 179, 8, 0.15);
+}
+
+/* -------------------------------------------------------------
+   POLICY CARDS
+   ------------------------------------------------------------- */
+.policy-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    border-left-width: 5px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.policy-card.priority-Critical { border-left-color: #DC2626; }
+.policy-card.priority-High { border-left-color: #EAB308; }
+.policy-card.priority-Medium { border-left-color: #0284C7; }
+.policy-card.priority-Low { border-left-color: #16A34A; }
+
+/* -------------------------------------------------------------
+   BUTTONS & BADGES
+   ------------------------------------------------------------- */
+.btn-yellow, .btn-primary, button[type="submit"] {
+    background-color: #EAB308 !important;
+    color: #0F172A !important;
+    font-weight: 700 !important;
+    border: 1px solid #CA8A04 !important;
+    box-shadow: 0 1px 3px rgba(234, 179, 8, 0.3);
+}
+
+.btn-yellow:hover, .btn-primary:hover, button[type="submit"]:hover {
+    background-color: #CA8A04 !important;
+    color: #FFFFFF !important;
+}
+
+.badge-low {
+    background: #DCFCE7;
+    color: #15803D;
+    border: 1px solid #BBF7D0;
+}
+
+.badge-medium {
+    background: #FEF9C3;
+    color: #A16207;
+    border: 1px solid #FEF08A;
+}
+
+.badge-high {
+    background: #FEE2E2;
+    color: #B91C1C;
+    border: 1px solid #FECACA;
+}
+
+/* Form Input Focus */
+input:focus, select:focus, textarea:focus {
+    border-color: #EAB308 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.25) !important;
+}
+
+/* Universal Light Text Overrides for crisp dark typography */
+.text-white {
+    color: #0F172A !important;
+}
+
+/* Maintain light text on dark badges/buttons */
+.btn-yellow .text-white, button[type="submit"] .text-white {
+    color: #0F172A !important;
+}

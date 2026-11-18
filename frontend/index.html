@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIDEGUARD AI &bull; Predictive Mobility Intelligence</title>
+    
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN) with Custom White & Yellow Theme -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rg-main': '#F8FAFC',
+                        'rg-sidebar': '#FFFFFF',
+                        'rg-card': '#FFFFFF',
+                        'rg-elevated': '#F1F5F9',
+                        'rg-border': '#E2E8F0',
+                        'rg-primary': '#EAB308',
+                        'rg-primary-hover': '#CA8A04',
+                        'rg-yellow': '#FACC15',
+                        'rg-yellow-light': '#FEF9C3',
+                        'rg-yellow-dark': '#854D0E',
+                        'rg-cyan': '#0284C7',
+                        'rg-success': '#16A34A',
+                        'rg-warning': '#D97706',
+                        'rg-danger': '#DC2626',
+                        'rg-text': '#0F172A',
+                        'rg-muted': '#475569',
+                        'rg-dim': '#94A3B8'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/app.css?v=2.1">
+</head>
+<body class="bg-rg-main text-rg-text font-sans antialiased min-h-screen flex selection:bg-yellow-300 selection:text-slate-900">
+
+    <!-- FIXED LEFT SIDEBAR (COLLAPSIBLE / COMPRESSIBLE) -->
+    <aside id="app-sidebar" class="bg-rg-sidebar border-r border-rg-border flex flex-col justify-between fixed top-0 left-0 bottom-0 z-30 select-none shadow-xs">
+        <div>
+            <!-- Header Brand Branding -->
+            <div class="p-4 border-b border-rg-border flex items-center justify-between brand-container">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div class="w-9 h-9 rounded-xl bg-yellow-400 border border-yellow-500/30 flex items-center justify-center text-slate-900 shadow-xs shrink-0">
+                        <i data-lucide="shield" class="w-5 h-5 fill-slate-900"></i>
+                    </div>
+                    <div class="sidebar-label whitespace-nowrap">
+                        <h1 class="font-extrabold text-sm text-rg-text tracking-tight uppercase">RideGuard AI</h1>
+                        <p class="text-[10px] text-rg-muted font-medium">Predictive Mobility Intel</p>
+                    </div>
+                </div>
+                <button id="btn-sidebar-collapse" class="p-1 rounded-md hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-all sidebar-label" title="Compress Sidebar">
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="p-3 space-y-1">
+                <div class="px-3 pt-2 pb-1 text-[10px] font-bold tracking-wider text-rg-dim uppercase sidebar-section-title">Platform Modules</div>
+                
+                <a href="#overview" data-target="view-overview" class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium" title="Executive Overview">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i>
+                    <span class="sidebar-label whitespace-nowrap">Executive Overview</span>
+                </a>
+
+                <a href="#analytics" data-target="view-analytics" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium" title="Cancellation Analytics">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4 shrink-0"></i>
+                    <span class="sidebar-label whitespace-nowrap">Cancellation Analytics</span>
+                </a>
+
+                <a href="#prediction" data-target="view-prediction" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium" title="AI Prediction">
+                    <i data-lucide="cpu" class="w-4 h-4 shrink-0"></i>
+                    <span class="sidebar-label whitespace-nowrap">AI Prediction</span>
+                </a>
+
+                <a href="#models" data-target="view-models" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium" title="Model Performance">
+                    <i data-lucide="activity" class="w-4 h-4 shrink-0"></i>
+                    <span class="sidebar-label whitespace-nowrap">Model Performance</span>
+                </a>
+
+                <a href="#explainable" data-target="view-explainable" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium" title="Explainable AI">
+                    <i data-lucide="eye" class="w-4 h-4 shrink-0"></i>
+                    <span class="sidebar-label whitespace-nowrap">Explainable AI</span>
+                </a>
+
+                <a href="#recommendations" data-target="view-recommendations" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium" title="Policy Recommendations">
+                    <i data-lucide="target" class="w-4 h-4 shrink-0"></i>
+                    <span class="sidebar-label whitespace-nowrap">Policy Recommendations</span>
+                </a>
+
+                <a href="#dataset" data-target="view-dataset" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium" title="Dataset Management">
+                    <i data-lucide="database" class="w-4 h-4 shrink-0"></i>
+                    <span class="sidebar-label whitespace-nowrap">Dataset Management</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Sidebar Footer Telemetry Box -->
+        <div class="p-3 border-t border-rg-border">
+            <div class="bg-rg-elevated border border-rg-border rounded-xl p-3 text-[11px] space-y-1.5 font-sans telemetry-card">
+                <div class="text-[9px] font-bold text-rg-dim uppercase tracking-wider mb-1 sidebar-label">SYSTEM TELEMETRY</div>
+                <div class="flex justify-between items-center sidebar-detail">
+                    <span class="text-rg-muted">Dataset:</span>
+                    <span id="sidebar-dataset-label" class="font-semibold text-rg-text truncate max-w-[110px]">No Dataset</span>
+                </div>
+                <div class="flex justify-between items-center sidebar-detail">
+                    <span class="text-rg-muted">Volume:</span>
+                    <span id="sidebar-dataset-rows" class="font-mono text-yellow-700 font-bold">0 rides</span>
+                </div>
+                <div class="flex justify-between items-center sidebar-detail">
+                    <span class="text-rg-muted">Champion:</span>
+                    <span id="sidebar-champion-model" class="font-bold text-yellow-600">--</span>
+                </div>
+                <!-- Compact dot shown in compressed mode -->
+                <div class="hidden justify-center items-center py-1 sidebar-compact-dot">
+                    <span class="w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse" title="System Active"></span>
+                </div>
+            </div>
+            <div class="text-center text-[10px] text-rg-dim mt-2 font-mono sidebar-label">v2.0 &bull; Real CSV Intelligence</div>
+        </div>
+    </aside>
+
+    <!-- MAIN APP CONTENT AREA (DYNAMIC MARGIN FOR COLLAPSED SIDEBAR) -->
+    <main id="main-content" class="flex-1 flex flex-col min-w-0 bg-rg-main min-h-screen">
+
+        <!-- TOP NAVIGATION BAR -->
+        <header class="h-16 border-b border-rg-border px-6 flex items-center justify-between sticky top-0 bg-white/95 backdrop-blur-md z-20 shadow-xs">
+            <div class="flex items-center gap-3 text-xs">
+                <!-- Toggle Sidebar Compress Button -->
+                <button id="btn-top-sidebar-toggle" class="p-1.5 rounded-lg bg-rg-elevated border border-rg-border hover:bg-yellow-100 hover:border-yellow-400 text-slate-700 hover:text-slate-900 transition-all flex items-center gap-1.5" title="Compress / Expand Sidebar">
+                    <i id="sidebar-toggle-icon" data-lucide="panel-left-close" class="w-4 h-4 text-slate-700"></i>
+                </button>
+                <span class="text-rg-dim font-medium">RideGuard AI</span>
+                <span class="text-rg-border">/</span>
+                <span id="top-breadcrumb" class="text-yellow-600 font-bold">Executive Overview</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="/" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-yellow-50 hover:border-yellow-300 border border-rg-border transition-all" title="Return to Website Landing Page">
+                    <i data-lucide="globe" class="w-3.5 h-3.5 text-yellow-600"></i>
+                    <span>Website</span>
+                </a>
+                <span id="top-dataset-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono bg-rg-elevated border border-rg-border text-slate-700 font-medium">
+                    <span id="top-dataset-dot" class="w-1.5 h-1.5 rounded-full bg-rg-dim"></span>
+                    <span id="top-dataset-text">No Dataset Connected</span>
+                </span>
+                <span id="top-model-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono bg-rg-elevated border border-rg-border text-slate-700 font-medium">
+                    <i data-lucide="cpu" class="w-3.5 h-3.5 text-yellow-600"></i>
+                    <span id="top-model-text">Models Not Trained</span>
+                </span>
+            </div>
+        </header>
+
+        <!-- VIEWS WRAPPER -->
+        <div class="p-8 max-w-7xl mx-auto w-full flex-1">
+
+            <!-- ======================================================== -->
+            <!-- VIEW 1: EXECUTIVE OVERVIEW -->
+            <!-- ======================================================== -->
+            <section id="view-overview" class="view-panel space-y-6">
+                <!-- Empty State (Shown when no dataset connected) -->
+                <div id="overview-empty-state" class="bg-rg-card border border-rg-border rounded-xl p-12 text-center max-w-2xl mx-auto my-12 space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-yellow-50 border border-yellow-300 flex items-center justify-center mx-auto text-yellow-600">
+                        <i data-lucide="database" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 tracking-tight">No Dataset Connected</h3>
+                    <p class="text-xs text-rg-muted max-w-md mx-auto leading-relaxed">
+                        Upload your historical ride-booking dataset to unlock cancellation analytics, machine learning predictions and operational intelligence.
+                    </p>
+                    <div class="pt-2">
+                        <button class="btn-goto-upload inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-slate-900 text-xs font-bold shadow-md shadow-yellow-500/20 transition-all">
+                            <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                            <span>Upload Dataset</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Populated Content (Hidden when empty) -->
+                <div id="overview-content" class="hidden space-y-6">
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight text-white">Executive Overview</h2>
+                        <p class="text-xs text-rg-muted mt-1">Monitor ride completion, cancellation trends, and predictive intelligence.</p>
+                    </div>
+
+                    <!-- 5 KPI Cards Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <div class="metric-card">
+                            <div class="flex justify-between items-center text-xs font-semibold text-rg-muted uppercase tracking-wider mb-2">
+                                <span>Total Bookings</span>
+                                <div class="w-6 h-6 rounded bg-rg-elevated flex items-center justify-center text-rg-muted">
+                                    <i data-lucide="car" class="w-3.5 h-3.5"></i>
+                                </div>
+                            </div>
+                            <div id="kpi-total-bookings" class="text-2xl font-bold text-white tracking-tight">0</div>
+                            <div class="text-[11px] text-rg-dim mt-1">Recorded trip requests</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="flex justify-between items-center text-xs font-semibold text-rg-muted uppercase tracking-wider mb-2">
+                                <span>Completed Rides</span>
+                                <div class="w-6 h-6 rounded bg-rg-elevated flex items-center justify-center text-rg-success">
+                                    <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                                </div>
+                            </div>
+                            <div id="kpi-completed-rides" class="text-2xl font-bold text-white tracking-tight">0</div>
+                            <div id="kpi-completed-pct" class="text-[11px] text-rg-success font-medium mt-1">0% fulfillment rate</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="flex justify-between items-center text-xs font-semibold text-rg-muted uppercase tracking-wider mb-2">
+                                <span>Cancelled Rides</span>
+                                <div class="w-6 h-6 rounded bg-rg-elevated flex items-center justify-center text-rg-danger">
+                                    <i data-lucide="x-circle" class="w-3.5 h-3.5"></i>
+                                </div>
+                            </div>
+                            <div id="kpi-cancelled-rides" class="text-2xl font-bold text-white tracking-tight">0</div>
+                            <div id="kpi-cancelled-pct" class="text-[11px] text-rg-danger font-medium mt-1">0% dropout rate</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="flex justify-between items-center text-xs font-semibold text-rg-muted uppercase tracking-wider mb-2">
+                                <span>Cancellation Rate</span>
+                                <div class="w-6 h-6 rounded bg-rg-elevated flex items-center justify-center text-rg-warning">
+                                    <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+                                </div>
+                            </div>
+                            <div id="kpi-cancellation-rate" class="text-2xl font-bold text-white tracking-tight">0%</div>
+                            <div class="text-[11px] text-rg-dim mt-1">Overall network churn</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="flex justify-between items-center text-xs font-semibold text-rg-muted uppercase tracking-wider mb-2">
+                                <span>Average Wait Time</span>
+                                <div class="w-6 h-6 rounded bg-rg-elevated flex items-center justify-center text-rg-cyan">
+                                    <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                                </div>
+                            </div>
+                            <div id="kpi-avg-wait" class="text-2xl font-bold text-white tracking-tight">-- min</div>
+                            <div class="text-[11px] text-rg-dim mt-1">Pre-dispatch latency</div>
+                        </div>
+                    </div>
+
+                    <!-- Split Chart Row -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div class="lg:col-span-5 bg-rg-card border border-rg-border rounded-lg p-5">
+                            <div class="border-b border-rg-border pb-3 mb-3 flex items-center justify-between">
+                                <h3 class="text-sm font-semibold text-white">Booking Outcome Distribution</h3>
+                                <span class="text-[11px] text-rg-dim">Completed vs Cancelled</span>
+                            </div>
+                            <div id="chart-outcome-donut" class="h-[280px]"></div>
+                        </div>
+
+                        <div class="lg:col-span-7 bg-rg-card border border-rg-border rounded-lg p-5">
+                            <div class="border-b border-rg-border pb-3 mb-3 flex items-center justify-between">
+                                <h3 class="text-sm font-semibold text-white">Booking and Cancellation Trends</h3>
+                                <span class="text-[11px] text-rg-dim">24-Hour Temporal Cohort</span>
+                            </div>
+                            <div id="chart-hourly-trend" class="h-[280px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- Lower Forensic Split (Insights & Model Telemetry) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div class="lg:col-span-7 bg-rg-card border border-rg-border rounded-lg p-5">
+                            <div class="border-b border-rg-border pb-3 mb-3 flex items-center justify-between">
+                                <h3 class="text-sm font-semibold text-white">Cancellation Insights</h3>
+                                <span class="text-[11px] text-rg-dim">Empirical Dataset Patterns</span>
+                            </div>
+                            <ul id="overview-insights-list" class="space-y-2 text-xs text-rg-muted">
+                                <!-- Populated via JS -->
+                            </ul>
+                        </div>
+
+                        <div class="lg:col-span-5 bg-rg-card border border-rg-border rounded-lg p-5">
+                            <div class="border-b border-rg-border pb-3 mb-3 flex items-center justify-between">
+                                <h3 class="text-sm font-semibold text-white">AI Intelligence Summary</h3>
+                                <span class="text-[11px] text-rg-dim font-mono">Production Telemetry</span>
+                            </div>
+                            <div class="space-y-2.5 text-xs">
+                                <div class="flex justify-between border-b border-rg-border/50 pb-2">
+                                    <span class="text-rg-muted">Lead Model:</span>
+                                    <span id="summary-model-name" class="font-mono text-rg-primary font-semibold">--</span>
+                                </div>
+                                <div class="flex justify-between border-b border-rg-border/50 pb-2">
+                                    <span class="text-rg-muted">Evaluation (ROC-AUC / F1):</span>
+                                    <span id="summary-metrics" class="font-mono text-rg-success font-semibold">-- / --</span>
+                                </div>
+                                <div class="flex justify-between border-b border-rg-border/50 pb-2">
+                                    <span class="text-rg-muted">Records Analyzed:</span>
+                                    <span id="summary-records" class="font-medium text-white">--</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-rg-muted">Dominant SHAP Factor:</span>
+                                    <span id="summary-top-factor" class="text-rg-cyan font-medium">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- VIEW 2: CANCELLATION ANALYTICS -->
+            <!-- ======================================================== -->
+            <section id="view-analytics" class="view-panel hidden space-y-6">
+                <!-- Empty State -->
+                <div id="analytics-empty-state" class="bg-rg-card border border-rg-border rounded-xl p-12 text-center max-w-2xl mx-auto my-12 space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-yellow-50 border border-yellow-300 flex items-center justify-center mx-auto text-yellow-600">
+                        <i data-lucide="bar-chart-2" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 tracking-tight">No Dataset Connected</h3>
+                    <p class="text-xs text-rg-muted max-w-md mx-auto leading-relaxed">
+                        Upload your ride-booking CSV to view vehicle breakdown, location hotspots, waiting time cohorts, and correlation matrices.
+                    </p>
+                    <div class="pt-2">
+                        <button class="btn-goto-upload inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-slate-900 text-xs font-bold shadow-md shadow-yellow-500/20 transition-all">
+                            <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                            <span>Upload Dataset</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Populated Content -->
+                <div id="analytics-content" class="hidden space-y-6">
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight text-white">Cancellation Analytics</h2>
+                        <p class="text-xs text-rg-muted mt-1">Multi-dimensional exploratory data analysis across vehicle categories, hubs, and delays.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-rg-card border border-rg-border rounded-lg p-5">
+                            <h3 class="text-sm font-semibold text-white mb-2">Cancellations by Vehicle Fleet</h3>
+                            <div id="chart-vehicle-breakdown" class="h-[280px]"></div>
+                        </div>
+
+                        <div class="bg-rg-card border border-rg-border rounded-lg p-5">
+                            <h3 class="text-sm font-semibold text-white mb-2">Top Pickup Locations by Cancellation Rate</h3>
+                            <div id="chart-location-breakdown" class="h-[280px]"></div>
+                        </div>
+
+                        <div class="bg-rg-card border border-rg-border rounded-lg p-5">
+                            <h3 class="text-sm font-semibold text-white mb-2">Waiting Delay Impact Cohort</h3>
+                            <div id="chart-wait-distribution" class="h-[280px]"></div>
+                        </div>
+
+                        <div class="bg-rg-card border border-rg-border rounded-lg p-5">
+                            <h3 class="text-sm font-semibold text-white mb-2">Numerical Feature Correlation Matrix</h3>
+                            <div id="chart-correlation-matrix" class="h-[280px]"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- VIEW 3: AI PREDICTION -->
+            <!-- ======================================================== -->
+            <section id="view-prediction" class="view-panel hidden space-y-6">
+                <!-- Empty State -->
+                <div id="prediction-empty-state" class="bg-rg-card border border-rg-border rounded-xl p-12 text-center max-w-2xl mx-auto my-12 space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-yellow-50 border border-yellow-300 flex items-center justify-center mx-auto text-yellow-600">
+                        <i data-lucide="cpu" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 tracking-tight">Machine Learning Models Not Trained</h3>
+                    <p class="text-xs text-rg-muted max-w-md mx-auto leading-relaxed">
+                        Upload your ride-booking dataset and train the machine learning models to enable live single-trip risk prediction and batch scoring.
+                    </p>
+                    <div class="pt-2">
+                        <button class="btn-goto-upload inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-slate-900 text-xs font-bold shadow-md shadow-yellow-500/20 transition-all">
+                            <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                            <span>Go to Dataset & Training</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Populated Content -->
+                <div id="prediction-content" class="hidden space-y-6">
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight text-white">AI Cancellation Predictor</h2>
+                        <p class="text-xs text-rg-muted mt-1">Real-time inference, risk categorization, and live SHAP factor attribution.</p>
+                    </div>
+
+                    <!-- Tabs: Single vs Batch -->
+                    <div class="flex border-b border-rg-border gap-4 text-xs font-medium">
+                        <button id="pred-tab-single-btn" class="border-b-2 border-rg-primary text-rg-primary pb-2 font-semibold">Single Trip Simulation</button>
+                        <button id="pred-tab-batch-btn" class="border-b-2 border-transparent text-rg-muted hover:text-white pb-2">Batch CSV Scoring</button>
+                    </div>
+
+                    <!-- TAB 1: Single Prediction -->
+                    <div id="pred-tab-single" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <!-- Form (Left 7 Cols) -->
+                        <div class="lg:col-span-7 bg-rg-card border border-rg-border rounded-lg p-6">
+                            <div class="flex items-center justify-between border-b border-rg-border pb-3 mb-4">
+                                <h3 class="text-sm font-semibold text-slate-900">Trip Parameters</h3>
+                                <span id="schema-feature-count" class="text-[10px] font-mono px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded font-bold border border-yellow-300">Dynamic Feature Sync</span>
+                            </div>
+
+                            <form id="prediction-form" class="space-y-4 text-xs">
+                                <div id="prediction-dynamic-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <!-- Dynamic parameters populated automatically via /api/predict/schema to match active trained model -->
+                                    <div class="col-span-full py-8 text-center text-slate-500">
+                                        <i data-lucide="loader" class="w-6 h-6 animate-spin mx-auto mb-2 text-yellow-500"></i>
+                                        <p class="font-medium">Connecting to model feature schema...</p>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="w-full mt-4 bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold py-2.5 px-4 rounded-lg transition-all text-xs flex items-center justify-center gap-2 shadow-md shadow-yellow-500/20 active:scale-[0.99]">
+                                    <i data-lucide="zap" class="w-4 h-4 fill-slate-900"></i>
+                                    <span>Predict Cancellation Risk</span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Results Panel (Right 5 Cols) -->
+                        <div class="lg:col-span-5 bg-rg-card border border-rg-border rounded-lg p-6 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-sm font-semibold text-white border-b border-rg-border pb-3 mb-4">Prediction Diagnostics</h3>
+
+                                <!-- Empty State before prediction -->
+                                <div id="pred-empty-state" class="text-center py-12 px-4 space-y-2">
+                                    <div class="w-12 h-12 rounded-full bg-rg-elevated border border-rg-border flex items-center justify-center text-rg-dim mx-auto">
+                                        <i data-lucide="cpu" class="w-6 h-6"></i>
+                                    </div>
+                                    <h4 class="text-sm font-medium text-white">Awaiting Parameters</h4>
+                                    <p class="text-xs text-rg-muted">Fill out the dispatch parameters on the left and click Predict to execute inference.</p>
+                                </div>
+
+                                <!-- Live Prediction Results (Hidden initially) -->
+                                <div id="pred-results-card" class="hidden space-y-4">
+                                    <!-- 1. DECISION HERO BANNER: YES/NO & CONFIDENCE SCORE -->
+                                    <div class="grid grid-cols-2 gap-3 bg-rg-elevated border border-rg-border rounded-xl p-3.5">
+                                        <!-- Will Cancel (YES / NO) -->
+                                        <div id="verdict-card-box" class="border rounded-lg p-3 bg-rg-card flex flex-col justify-between">
+                                            <span class="text-[10px] uppercase font-bold tracking-wider text-rg-muted">Will Ride Cancel?</span>
+                                            <div class="flex items-center gap-2 my-1">
+                                                <span id="res-verdict-icon" class="text-xl">⚠️</span>
+                                                <span id="res-will-cancel" class="text-3xl font-black tracking-tight">YES</span>
+                                            </div>
+                                            <span id="res-verdict-subtext" class="text-[10px] font-medium text-rg-muted">Cancellation Predicted</span>
+                                        </div>
+
+                                        <!-- Confidence Score -->
+                                        <div class="border border-rg-border rounded-lg p-3 bg-rg-card flex flex-col justify-between">
+                                            <span class="text-[10px] uppercase font-bold tracking-wider text-rg-muted">Confidence Score</span>
+                                            <div class="my-1">
+                                                <span id="res-confidence-score" class="text-3xl font-black font-mono text-slate-900">--%</span>
+                                            </div>
+                                            <div class="w-full bg-rg-elevated rounded-full h-1.5 overflow-hidden">
+                                                <div id="res-confidence-bar" class="h-full bg-yellow-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 2. RECOMMENDED OPERATIONAL ACTION (MAIN HIGHLIGHT) -->
+                                    <div id="res-action-container" class="bg-yellow-50 border-2 border-yellow-400 rounded-xl p-4 space-y-2.5 shadow-sm">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <span class="relative flex h-2.5 w-2.5">
+                                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-yellow-500"></span>
+                                                </span>
+                                                <span class="text-[11px] font-extrabold uppercase tracking-wider text-yellow-800">RECOMMENDED OPERATIONAL ACTION</span>
+                                            </div>
+                                            <span id="res-action-priority" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">PRIORITY</span>
+                                        </div>
+                                        <p id="res-recommended-action" class="text-xs text-slate-800 leading-relaxed font-semibold bg-white border border-yellow-200 p-3 rounded-lg shadow-xs">
+                                            --
+                                        </p>
+                                    </div>
+
+                                    <!-- 3. DIAGNOSTICS & METADATA -->
+                                    <div class="bg-rg-elevated border border-rg-border rounded-lg p-3 text-xs space-y-2">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-rg-muted">Model Risk Category:</span>
+                                            <span id="res-risk-badge" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">--</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-rg-muted">Raw Cancellation Probability:</span>
+                                            <span id="res-raw-prob" class="font-mono text-slate-900 font-semibold">--%</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-rg-muted">Champion Algorithm Used:</span>
+                                            <span id="res-model-used" class="font-mono text-rg-primary">--</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 4. GAUGE & SHAP ATTRIBUTION -->
+                                    <div>
+                                        <div class="text-xs font-semibold text-slate-900 mb-2 flex items-center justify-between">
+                                            <span>SHAP Feature Attribution (Drivers)</span>
+                                            <span class="text-[10px] text-rg-dim">Impact on Outcome</span>
+                                        </div>
+                                        <div id="chart-local-shap" class="h-[150px]"></div>
+                                        <p id="res-shap-narrative" class="text-[11px] text-rg-dim bg-rg-elevated p-2 rounded border border-rg-border mt-2"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Batch CSV Scoring -->
+                    <div id="pred-tab-batch" class="hidden bg-rg-card border border-rg-border rounded-lg p-6 space-y-4">
+                        <h3 class="text-sm font-semibold text-white">Batch CSV Ride Scoring</h3>
+                        <p class="text-xs text-rg-muted">Upload a CSV file containing multiple booking records to score cancellation probabilities, YES/NO verdicts, and action directives in bulk.</p>
+                        
+                        <div class="border-2 border-dashed border-rg-border rounded-lg p-8 text-center bg-rg-elevated/40 hover:bg-rg-elevated transition-all">
+                            <input type="file" id="batch-file-input" accept=".csv" class="hidden">
+                            <label for="batch-file-input" class="cursor-pointer space-y-2 block">
+                                <div class="w-10 h-10 rounded-full bg-rg-elevated flex items-center justify-center text-rg-primary mx-auto">
+                                    <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+                                </div>
+                                <div class="text-xs font-medium text-white">Choose CSV file or drag and drop</div>
+                                <div class="text-[10px] text-rg-dim">Supports standard ride-hailing feature headers</div>
+                            </label>
+                        </div>
+
+                        <div id="batch-results-area" class="hidden space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span id="batch-summary-text" class="text-xs text-rg-muted font-medium">Scored 0 records.</span>
+                            </div>
+                            <div class="overflow-x-auto border border-rg-border rounded max-h-[420px] overflow-y-auto">
+                                <table id="batch-results-table" class="w-full text-left text-xs font-mono">
+                                    <thead class="bg-rg-elevated sticky top-0 border-b border-rg-border text-rg-dim uppercase text-[10px]">
+                                        <tr>
+                                            <th class="p-2.5">Vehicle</th>
+                                            <th class="p-2.5">Pickup</th>
+                                            <th class="p-2.5">Will Cancel?</th>
+                                            <th class="p-2.5">Confidence</th>
+                                            <th class="p-2.5">Risk Level</th>
+                                            <th class="p-2.5">Recommended Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-rg-border text-rg-muted">
+                                        <!-- Populated via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- VIEW 4: MODEL PERFORMANCE -->
+            <!-- ======================================================== -->
+            <section id="view-models" class="view-panel hidden space-y-6">
+                <!-- Empty State -->
+                <div id="models-empty-state" class="bg-rg-card border border-rg-border rounded-xl p-12 text-center max-w-2xl mx-auto my-12 space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-yellow-50 border border-yellow-300 flex items-center justify-center mx-auto text-yellow-600">
+                        <i data-lucide="activity" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 tracking-tight">Models Not Trained</h3>
+                    <p class="text-xs text-rg-muted max-w-md mx-auto leading-relaxed">
+                        Upload your dataset and train machine learning models to generate 4-model benchmarking, ROC curves, and confusion matrices.
+                    </p>
+                    <div class="pt-2">
+                        <button class="btn-goto-upload inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-slate-900 text-xs font-bold shadow-md shadow-yellow-500/20 transition-all">
+                            <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                            <span>Go to Dataset & Training</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Populated Content -->
+                <div id="models-content" class="hidden space-y-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-2xl font-bold tracking-tight text-white">Model Performance Benchmark</h2>
+                            <p class="text-xs text-rg-muted mt-1">Multi-metric comparative evaluation across 4 machine learning algorithms.</p>
+                        </div>
+                        <button id="btn-retrain-models" class="bg-rg-elevated hover:bg-rg-border border border-rg-border text-white text-xs px-3 py-2 rounded flex items-center gap-1.5 transition-all">
+                            <i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i>
+                            <span>Retrain Models</span>
+                        </button>
+                    </div>
+
+                    <!-- 4 Model Cards Grid -->
+                    <div id="model-cards-grid" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <!-- Populated via JS -->
+                    </div>
+
+                    <!-- Comparison Bar Chart & Leaderboard -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div class="lg:col-span-7 bg-rg-card border border-rg-border rounded-lg p-5">
+                            <h3 class="text-sm font-semibold text-white mb-2">Cross-Model Metric Benchmark</h3>
+                            <div id="chart-models-bar" class="h-[280px]"></div>
+                        </div>
+
+                        <div class="lg:col-span-5 bg-rg-card border border-rg-border rounded-lg p-5 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-sm font-semibold text-white mb-2">Multi-Model ROC Curves</h3>
+                                <div id="chart-roc-curves" class="h-[280px]"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confusion Matrix Heatmap -->
+                    <div class="bg-rg-card border border-rg-border rounded-lg p-5 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-sm font-semibold text-white">Confusion Matrix Inspector</h3>
+                                <p class="text-[11px] text-rg-muted mt-0.5">Out-of-sample test set verification & classification breakdown</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <label for="cm-model-select" class="text-xs text-rg-muted">Model:</label>
+                                <select id="cm-model-select" class="bg-rg-elevated border border-rg-border rounded px-3 py-1.5 text-xs text-white outline-none focus:border-rg-primary">
+                                    <option value="Logistic Regression">Logistic Regression</option>
+                                    <option value="Decision Tree">Decision Tree</option>
+                                    <option value="Random Forest">Random Forest</option>
+                                    <option value="XGBoost" selected>XGBoost</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Heatmap Container -->
+                        <div id="chart-confusion-matrix" class="h-[300px] w-full min-h-[300px]"></div>
+
+                        <!-- 4-Quadrant Metric Cards -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2 border-t border-rg-border">
+                            <div class="bg-rg-elevated/70 border border-rg-border rounded-lg p-3">
+                                <div class="text-[10px] uppercase font-bold text-emerald-400 flex items-center justify-between">
+                                    <span>True Negative (TN)</span>
+                                    <span class="text-xs">✅</span>
+                                </div>
+                                <div id="cm-stat-tn" class="text-xl font-black font-mono text-white mt-1">--</div>
+                                <div class="text-[10px] text-rg-muted mt-0.5">Accurate Completed Rides</div>
+                            </div>
+                            <div class="bg-rg-elevated/70 border border-rg-border rounded-lg p-3">
+                                <div class="text-[10px] uppercase font-bold text-amber-400 flex items-center justify-between">
+                                    <span>False Positive (FP)</span>
+                                    <span class="text-xs">⚠️</span>
+                                </div>
+                                <div id="cm-stat-fp" class="text-xl font-black font-mono text-white mt-1">--</div>
+                                <div class="text-[10px] text-rg-muted mt-0.5">False Alarms (Overflagged)</div>
+                            </div>
+                            <div class="bg-rg-elevated/70 border border-rg-border rounded-lg p-3">
+                                <div class="text-[10px] uppercase font-bold text-rose-400 flex items-center justify-between">
+                                    <span>False Negative (FN)</span>
+                                    <span class="text-xs">❌</span>
+                                </div>
+                                <div id="cm-stat-fn" class="text-xl font-black font-mono text-white mt-1">--</div>
+                                <div class="text-[10px] text-rg-muted mt-0.5">Missed Cancellations</div>
+                            </div>
+                            <div class="bg-rg-elevated/70 border border-rg-border rounded-lg p-3">
+                                <div class="text-[10px] uppercase font-bold text-yellow-700 flex items-center justify-between">
+                                    <span>True Positive (TP)</span>
+                                    <span class="text-xs">🎯</span>
+                                </div>
+                                <div id="cm-stat-tp" class="text-xl font-black font-mono text-white mt-1">--</div>
+                                <div class="text-[10px] text-rg-muted mt-0.5">Accurate Cancellations</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- VIEW 5: EXPLAINABLE AI (SHAP) -->
+            <!-- ======================================================== -->
+            <section id="view-explainable" class="view-panel hidden space-y-6">
+                <!-- Empty State -->
+                <div id="explainable-empty-state" class="bg-rg-card border border-rg-border rounded-xl p-12 text-center max-w-2xl mx-auto my-12 space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-yellow-50 border border-yellow-300 flex items-center justify-center mx-auto text-yellow-600">
+                        <i data-lucide="eye" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 tracking-tight">Explainability Awaiting Model Training</h3>
+                    <p class="text-xs text-rg-muted max-w-md mx-auto leading-relaxed">
+                        Upload your dataset and train machine learning models to calculate exact Shapley additive attributions and discover influential cancellation drivers.
+                    </p>
+                    <div class="pt-2">
+                        <button class="btn-goto-upload inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-slate-900 text-xs font-bold shadow-md shadow-yellow-500/20 transition-all">
+                            <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                            <span>Go to Dataset & Training</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Populated Content -->
+                <div id="explainable-content" class="hidden space-y-6">
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight text-white">Explainable AI (SHAP)</h2>
+                        <p class="text-xs text-rg-muted mt-1">Cooperative game-theoretic attribution allocating exact marginal weights to dispatch features.</p>
+                    </div>
+
+                    <div class="bg-rg-card border border-rg-border rounded-lg p-5 border-l-4 border-l-yellow-500">
+                        <h3 class="text-sm font-semibold text-white mb-1">Why Does the Model Predict Cancellation?</h3>
+                        <p class="text-xs text-rg-muted leading-relaxed">
+                            Shapley Additive Explanations calculate the contribution of each feature towards pushing a ride's outcome from completed to cancelled.
+                            Features with highest attribution indicate the primary root causes pushing rides toward cancellation in your fleet.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div class="lg:col-span-7 bg-rg-card border border-rg-border rounded-lg p-5">
+                            <h3 class="text-sm font-semibold text-white mb-2">Global Feature Importance (Mean |SHAP|)</h3>
+                            <div id="chart-global-shap" class="min-h-[380px] w-full"></div>
+                        </div>
+
+                        <div class="lg:col-span-5 bg-rg-card border border-rg-border rounded-lg p-5">
+                            <h3 class="text-sm font-semibold text-white mb-2">Leading Cancellation Drivers</h3>
+                            <div class="overflow-x-auto">
+                                <table id="table-shap-drivers" class="w-full text-xs text-left">
+                                    <thead class="border-b border-rg-border text-rg-dim uppercase text-[10px]">
+                                        <tr>
+                                            <th class="py-2">Rank</th>
+                                            <th class="py-2">Feature Name</th>
+                                            <th class="py-2">Mean |SHAP|</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-rg-border text-rg-muted">
+                                        <!-- Populated via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- VIEW 6: POLICY RECOMMENDATIONS -->
+            <!-- ======================================================== -->
+            <section id="view-recommendations" class="view-panel hidden space-y-6">
+                <!-- Empty State -->
+                <div id="recommendations-empty-state" class="bg-rg-card border border-rg-border rounded-xl p-12 text-center max-w-2xl mx-auto my-12 space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-yellow-50 border border-yellow-300 flex items-center justify-center mx-auto text-yellow-600">
+                        <i data-lucide="target" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 tracking-tight">Policy Engine Awaiting Data</h3>
+                    <p class="text-xs text-rg-muted max-w-md mx-auto leading-relaxed">
+                        Upload your historical ride-booking dataset to mine empirical spatial, temporal, and delay cohorts for operational interventions.
+                    </p>
+                    <div class="pt-2">
+                        <button class="btn-goto-upload inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-slate-900 text-xs font-bold shadow-md shadow-yellow-500/20 transition-all">
+                            <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                            <span>Upload Dataset</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Populated Content -->
+                <div id="recommendations-content" class="hidden space-y-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-2xl font-bold tracking-tight text-white">Intelligent Policy Recommendations</h2>
+                            <p class="text-xs text-rg-muted mt-1">Evidence-backed operational initiatives derived from spatial, temporal, and delay deficits.</p>
+                        </div>
+
+                        <!-- Priority Filters -->
+                        <div class="flex bg-rg-elevated border border-rg-border rounded p-1 text-xs font-medium">
+                            <button data-filter="all" class="rec-filter-btn px-3 py-1 rounded bg-yellow-500 text-slate-900 font-bold">All</button>
+                            <button data-filter="Critical" class="rec-filter-btn px-3 py-1 rounded text-rg-muted hover:text-slate-900 font-medium">Critical</button>
+                            <button data-filter="High" class="rec-filter-btn px-3 py-1 rounded text-rg-muted hover:text-slate-900 font-medium">High</button>
+                            <button data-filter="Medium" class="rec-filter-btn px-3 py-1 rounded text-rg-muted hover:text-slate-900 font-medium">Medium</button>
+                        </div>
+                    </div>
+
+                    <div id="recommendations-container" class="space-y-4">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- VIEW 7: DATASET MANAGEMENT & AUDIT CENTER -->
+            <!-- ======================================================== -->
+            <section id="view-dataset" class="view-panel hidden space-y-6">
+                <div>
+                    <h2 class="text-2xl font-bold tracking-tight text-white">Dataset Management & Schema Center</h2>
+                    <p class="text-xs text-rg-muted mt-1">Upload custom ride-booking CSV files, map column schemas, audit data quality, and train machine learning models.</p>
+                </div>
+
+                <!-- CSV Upload Drag-and-Drop Area -->
+                <div class="bg-rg-card border border-rg-border rounded-xl p-6 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-sm font-semibold text-white">Upload Historical Ride CSV</h3>
+                            <p class="text-xs text-rg-muted">Accepts any tabular ride-hailing CSV containing booking records, trip attributes, and cancellation outcomes.</p>
+                        </div>
+                        <button id="btn-load-sample" class="bg-rg-elevated hover:bg-rg-border border border-rg-border text-white text-xs px-3 py-1.5 rounded flex items-center gap-1.5 transition-all">
+                            <i data-lucide="file-text" class="w-3.5 h-3.5 text-rg-cyan"></i>
+                            <span>Load Repository Sample (ride_bookings.csv)</span>
+                        </button>
+                    </div>
+
+                    <!-- Drag and Drop Dropzone -->
+                    <div id="csv-dropzone" class="border-2 border-dashed border-rg-border rounded-lg p-8 text-center bg-rg-elevated/40 hover:bg-rg-elevated/70 hover:border-rg-primary transition-all cursor-pointer">
+                        <input type="file" id="dataset-file-input" accept=".csv" class="hidden">
+                        <div class="space-y-2 pointer-events-none">
+                            <div class="w-12 h-12 rounded-full bg-yellow-50 border border-yellow-300 flex items-center justify-center text-yellow-600 mx-auto">
+                                <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+                            </div>
+                            <div class="text-xs font-semibold text-slate-900">Drag & Drop your CSV file here, or <span class="text-yellow-600 underline font-bold">browse</span></div>
+                            <div class="text-[11px] text-rg-dim">Maximum recommended file size: 50 MB &bull; UTF-8 CSV</div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Progress indicator -->
+                    <div id="upload-progress-container" class="hidden space-y-1.5">
+                        <div class="flex justify-between text-xs text-rg-muted">
+                            <span id="upload-progress-text">Uploading & validating CSV...</span>
+                            <span id="upload-progress-pct" class="font-mono text-rg-primary">0%</span>
+                        </div>
+                        <div class="w-full bg-rg-elevated rounded-full h-1.5 overflow-hidden">
+                            <div id="upload-progress-bar" class="bg-rg-primary h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Dataset Information & Quality Summary Bar -->
+                <div id="active-dataset-card" class="hidden space-y-6">
+                    <!-- Top Summary Card with Remove Option -->
+                    <div class="bg-rg-card border border-rg-border rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-rg-success">
+                                <i data-lucide="file-check" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 id="active-dataset-name" class="font-bold text-sm text-white">ride_bookings.csv</h3>
+                                    <span id="active-validation-badge" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">Valid</span>
+                                </div>
+                                <div class="text-xs text-rg-muted mt-0.5 flex items-center gap-3 font-mono">
+                                    <span id="active-file-size">145 KB</span>
+                                    <span>&bull;</span>
+                                    <span id="active-row-count">1,000 rows</span>
+                                    <span>&bull;</span>
+                                    <span id="active-col-count">15 columns</span>
+                                    <span>&bull;</span>
+                                    <span id="active-target-display" class="text-rg-cyan">Target: Booking_Status</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <button id="btn-remove-dataset" class="bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 text-xs px-3 py-2 rounded flex items-center gap-1.5 transition-all">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                <span>Remove Dataset</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4 Quality & Hygiene Metric Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="metric-card">
+                            <div class="text-xs font-semibold text-rg-muted uppercase mb-1">Total Records</div>
+                            <div id="ds-total-rows" class="text-2xl font-bold text-white">0</div>
+                            <div id="ds-records-note" class="text-[11px] text-rg-dim mt-1">Validated rows</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="text-xs font-semibold text-rg-muted uppercase mb-1">Feature Columns</div>
+                            <div id="ds-total-cols" class="text-2xl font-bold text-white">0</div>
+                            <div class="text-[11px] text-rg-dim mt-1">Available attributes</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="text-xs font-semibold text-rg-muted uppercase mb-1">Duplicate Rows</div>
+                            <div id="ds-duplicates" class="text-2xl font-bold text-white">0</div>
+                            <div class="text-[11px] text-rg-dim mt-1">Strict duplicate check</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="text-xs font-semibold text-rg-muted uppercase mb-1">Missing Cells</div>
+                            <div id="ds-missing-cells" class="text-2xl font-bold text-white">0</div>
+                            <div class="text-[11px] text-rg-dim mt-1">Null value count</div>
+                        </div>
+                    </div>
+
+                    <!-- Quality Warnings Callout (if any) -->
+                    <div id="validation-warnings-container" class="hidden bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 text-xs text-amber-300 space-y-1">
+                        <div class="font-semibold flex items-center gap-2 text-amber-200">
+                            <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                            <span>Data Quality Observations</span>
+                        </div>
+                        <ul id="validation-warnings-list" class="list-disc list-inside text-[11px] space-y-0.5 mt-1"></ul>
+                    </div>
+
+                    <!-- Interactive Schema Mapping & Model Training Row -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <!-- Column Mapping Editor (8 Cols) -->
+                        <div class="lg:col-span-8 bg-rg-card border border-rg-border rounded-xl p-5 space-y-4">
+                            <div class="border-b border-rg-border pb-3 flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-sm font-semibold text-white">Schema Column Mapping</h3>
+                                    <p class="text-[11px] text-rg-dim">Match standard predictive attributes to your dataset's actual column names.</p>
+                                </div>
+                                <button id="btn-save-mapping" class="bg-rg-elevated hover:bg-rg-border border border-rg-border text-white text-xs px-3 py-1.5 rounded flex items-center gap-1.5 transition-all">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 text-rg-success"></i>
+                                    <span>Confirm Mapping</span>
+                                </button>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs" id="mapping-dropdowns-container">
+                                <!-- Populated dynamically via JS -->
+                            </div>
+
+                            <!-- Target Class Distribution Preview -->
+                            <div class="bg-rg-elevated border border-rg-border rounded-lg p-3 text-xs flex justify-between items-center">
+                                <span class="text-rg-muted font-medium">Target Class Distribution:</span>
+                                <div id="target-distribution-tags" class="flex gap-2">
+                                    <!-- Populated via JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Model Training CTA Card (4 Cols) -->
+                        <div class="lg:col-span-4 bg-rg-card border border-rg-border rounded-xl p-5 flex flex-col justify-between space-y-4">
+                            <div class="space-y-3">
+                                <div class="border-b border-rg-border pb-3">
+                                    <h3 class="text-sm font-semibold text-white">Model Training Engine</h3>
+                                    <p class="text-[11px] text-rg-dim">Trains 4 machine learning algorithms on your validated dataset.</p>
+                                </div>
+
+                                <div class="space-y-2 text-xs">
+                                    <div class="flex justify-between text-rg-muted">
+                                        <span>Status:</span>
+                                        <span id="training-status-pill" class="font-semibold text-rg-warning font-mono">Awaiting Training</span>
+                                    </div>
+                                    <div class="flex justify-between text-rg-muted">
+                                        <span>Algorithms:</span>
+                                        <span class="text-white">4 Comparative</span>
+                                    </div>
+                                    <div class="flex justify-between text-rg-muted">
+                                        <span>Leakage Shield:</span>
+                                        <span class="text-rg-success font-semibold">Active</span>
+                                    </div>
+                                    <div class="flex justify-between text-rg-muted">
+                                        <span>Evaluation:</span>
+                                        <span class="text-white">Stratified 80/20 Test</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2 pt-2">
+                                <button id="btn-train-active-dataset" class="w-full bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold py-3 px-4 rounded-lg transition-all text-xs flex items-center justify-center gap-2 shadow-md shadow-yellow-500/25">
+                                    <i data-lucide="play" class="w-4 h-4 fill-slate-900"></i>
+                                    <span>Train Machine Learning Models</span>
+                                </button>
+                                <p class="text-[10px] text-center text-rg-dim">Takes ~1-2 seconds with exact tree and linear explainers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Raw Data Preview Table -->
+                    <div class="bg-rg-card border border-rg-border rounded-xl p-5 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-semibold text-white">Dataset Preview (First 15 Records)</h3>
+                            <span class="text-[11px] text-rg-dim font-mono">Raw Tabular View</span>
+                        </div>
+                        <div class="overflow-x-auto border border-rg-border rounded-lg max-h-72">
+                            <table id="dataset-preview-table" class="w-full text-left text-xs font-mono whitespace-nowrap">
+                                <thead id="preview-table-head" class="bg-rg-elevated border-b border-rg-border text-rg-dim uppercase text-[10px] sticky top-0">
+                                    <!-- Populated via JS -->
+                                </thead>
+                                <tbody id="preview-table-body" class="divide-y divide-rg-border text-rg-muted">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Column Schema Breakdown -->
+                    <div class="bg-rg-card border border-rg-border rounded-xl p-5 space-y-3">
+                        <h3 class="text-sm font-semibold text-white">Feature Schema Breakdown</h3>
+                        <div class="overflow-x-auto border border-rg-border rounded-lg">
+                            <table class="w-full text-left text-xs font-mono">
+                                <thead class="bg-rg-elevated border-b border-rg-border text-rg-dim uppercase text-[10px]">
+                                    <tr>
+                                        <th class="p-2.5">Column Name</th>
+                                        <th class="p-2.5">Data Type</th>
+                                        <th class="p-2.5">Missing Count</th>
+                                        <th class="p-2.5">Missing (%)</th>
+                                        <th class="p-2.5">Unique Values</th>
+                                        <th class="p-2.5">Sample Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="schema-table-body" class="divide-y divide-rg-border text-rg-muted">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Custom Frontend Application JS -->
+    <script src="/static/js/app.js?v=2.1"></script>
+</body>
+</html>

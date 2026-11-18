@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIDEGUARD AI &bull; 3D Predictive Mobility Intelligence Platform</title>
+    
+    <!-- Meta SEO & OpenGraph -->
+    <meta name="description" content="Transform ride-booking data into actionable intelligence with machine learning-powered cancellation prediction and explainable AI.">
+    <meta name="keywords" content="RideGuard AI, ride cancellation prediction, 3D mobility intelligence, fleet analytics, machine learning, SHAP, XGBoost">
+    
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Three.js (3D WebGL Engine) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Custom 3D White & Yellow Prestige SaaS Stylesheet -->
+    <link rel="stylesheet" href="/static/css/landing.css">
+</head>
+<body>
+
+    <!-- Ambient Glowing Backdrops -->
+    <div class="ambient-glow glow-hero"></div>
+    <div class="ambient-glow glow-yellow-left"></div>
+    <div class="ambient-glow glow-yellow-right"></div>
+    <div class="ambient-glow glow-cta"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 1: FIXED NAVIGATION BAR -->
+    <!-- ======================================================== -->
+    <header class="navbar">
+        <div class="nav-inner">
+            <!-- Brand Logo -->
+            <a href="#hero" class="brand-logo" aria-label="RideGuard AI Home">
+                <div class="brand-icon-wrapper">
+                    <i data-lucide="shield" class="w-5 h-5 text-slate-900 fill-slate-900"></i>
+                </div>
+                <div class="brand-text">
+                    RIDEGUARD <span>AI</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#hero" class="nav-link active">Home</a></li>
+                    <li><a href="#capabilities" class="nav-link">Features</a></li>
+                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                    <li><a href="#technology" class="nav-link">Technology</a></li>
+                    <li><a href="#about" class="nav-link btn-open-about">About</a></li>
+                </ul>
+            </nav>
+
+            <!-- Right CTA Button -->
+            <div class="nav-cta-wrapper">
+                <a href="/app" class="btn-primary" id="nav-btn-launch">
+                    <span>Launch Platform</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-900"></i>
+                </a>
+
+                <!-- Mobile Hamburger Toggle -->
+                <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Navigation">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-nav-drawer" class="mobile-nav-drawer">
+        <a href="#hero" class="mobile-nav-link">Home</a>
+        <a href="#capabilities" class="mobile-nav-link">Features</a>
+        <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
+        <a href="#technology" class="mobile-nav-link">Technology</a>
+        <a href="#about" class="mobile-nav-link btn-open-about">About</a>
+        <div style="padding-top: 0.5rem;">
+            <a href="/app" class="btn-primary" style="width: 100%; justify-content: center;">
+                <span>Launch Platform</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-slate-900"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 2: HERO SECTION (WITH 3D MOBILITY CITY) -->
+    <!-- ======================================================== -->
+    <section id="hero" class="hero-section">
+        <div class="landing-container">
+            <div class="hero-grid">
+                <!-- Left: Headline & Content -->
+                <div class="hero-content">
+                    <div class="section-tag pulse-dot hero-badge-pill">
+                        Next-Gen 3D Predictive Fleet Intelligence
+                    </div>
+
+                    <h1 class="hero-headline">
+                        Predict the Risk.<br>
+                        <span class="text-gradient">Prevent the Cancellation.</span>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        Transform ride-booking data into actionable intelligence with machine learning-powered cancellation prediction and explainable AI.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="/app" class="btn-primary btn-lg" id="hero-btn-explore">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-slate-900"></i>
+                            <span>Explore Platform</span>
+                        </a>
+
+                        <a href="#how-it-works" class="btn-secondary btn-lg" id="hero-btn-how">
+                            <i data-lucide="play-circle" class="w-4 h-4 text-yellow-600"></i>
+                            <span>Discover How It Works</span>
+                        </a>
+                    </div>
+
+                    <!-- Operational Architecture Trust Strip -->
+                    <div class="hero-metrics-strip">
+                        <div class="hero-metric-item">
+                            <span class="hero-metric-val">4</span>
+                            <span class="hero-metric-lbl">ML Algorithms</span>
+                        </div>
+                        <div class="hero-metric-item">
+                            <span class="hero-metric-val">SHAP</span>
+                            <span class="hero-metric-lbl">Game-Theoretic XAI</span>
+                        </div>
+                        <div class="hero-metric-item">
+                            <span class="hero-metric-val">0%</span>
+                            <span class="hero-metric-lbl">Data Leakage</span>
+                        </div>
+                        <div class="hero-metric-item">
+                            <span class="hero-metric-val">&lt; 15ms</span>
+                            <span class="hero-metric-lbl">Live Inference</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Impressive 3D WebGL Mobility Visual -->
+                <div class="hero-visual-wrapper">
+                    <div class="hero-visual-card">
+                        <!-- 3D Canvas Container -->
+                        <div class="canvas-container">
+                            <canvas id="three-mobility-canvas"></canvas>
+                        </div>
+
+                        <!-- 3D Interactive Helper Tag -->
+                        <div class="hint-3d-badge">
+                            <i data-lucide="box" class="w-3.5 h-3.5 text-yellow-600"></i>
+                            <span>Interactive 3D Fleet City &bull; Move Cursor</span>
+                        </div>
+
+                        <!-- Floating Glass Telemetry Chip 1 (Top-Right) -->
+                        <div class="telemetry-chip chip-top-right">
+                            <div class="chip-badge risk-high">
+                                <i data-lucide="alert-triangle" class="w-3 h-3"></i>
+                                <span>Risk Flagged</span>
+                            </div>
+                            <div class="chip-val">P(Cancel): 74.8%</div>
+                            <div class="chip-sub">Driver Delay + Surge 1.6x</div>
+                        </div>
+
+                        <!-- Floating Glass Telemetry Chip 2 (Bottom-Left) -->
+                        <div class="telemetry-chip chip-bottom-left">
+                            <div class="chip-badge risk-low">
+                                <i data-lucide="check-circle" class="w-3 h-3"></i>
+                                <span>Optimal Dispatch</span>
+                            </div>
+                            <div class="chip-val">P(Cancel): 11.2%</div>
+                            <div class="chip-sub">High Driver Rating (4.9★)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 3: PRODUCT PREVIEW -->
+    <!-- ======================================================== -->
+    <section id="preview" style="padding-top: 3rem;">
+        <div class="landing-container">
+            <div class="section-center">
+                <div class="section-tag">Interactive Preview</div>
+                <h2 class="section-title">The RideGuard AI Command Console</h2>
+                <p class="section-subtitle">
+                    Experience the unified operational interface where fleet operators audit real-time cancellation analytics, run single-trip risk inference, and deploy targeted intervention policies.
+                </p>
+            </div>
+
+            <!-- Stylized White & Yellow Browser Window -->
+            <div class="product-preview-window">
+                <!-- Browser Header -->
+                <div class="window-header">
+                    <div class="window-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="window-url-bar">
+                        <i data-lucide="lock" class="w-3.5 h-3.5 text-yellow-600"></i>
+                        <span>rideguard.ai/app/console</span>
+                    </div>
+                    <div style="width: 50px;"></div>
+                </div>
+
+                <!-- Interactive View Switcher Tabs -->
+                <div class="window-tabs">
+                    <button class="window-tab-btn active" data-view="view-tab-overview">
+                        <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-yellow-700"></i>
+                        <span>Executive Overview</span>
+                    </button>
+                    <button class="window-tab-btn" data-view="view-tab-prediction">
+                        <i data-lucide="cpu" class="w-3.5 h-3.5 text-yellow-700"></i>
+                        <span>AI Prediction & Diagnostics</span>
+                    </button>
+                    <button class="window-tab-btn" data-view="view-tab-models">
+                        <i data-lucide="activity" class="w-3.5 h-3.5 text-yellow-700"></i>
+                        <span>Model Benchmarking</span>
+                    </button>
+                </div>
+
+                <!-- Window Content Body -->
+                <div class="window-body">
+                    <!-- PREVIEW TAB 1: EXECUTIVE OVERVIEW -->
+                    <div id="view-tab-overview" class="preview-view-panel active">
+                        <!-- 5 KPI Cards Mock -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 1.15rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                                <div style="font-size: 0.6875rem; text-transform: uppercase; font-weight: 800; color: #64748B; margin-bottom: 0.35rem;">Total Bookings</div>
+                                <div style="font-size: 1.65rem; font-weight: 900; color: #0F172A; font-family: var(--font-mono);">100,000</div>
+                                <div style="font-size: 0.75rem; color: #64748B; margin-top: 0.25rem;">Active fleet requests</div>
+                            </div>
+
+                            <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 1.15rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                                <div style="font-size: 0.6875rem; text-transform: uppercase; font-weight: 800; color: #64748B; margin-bottom: 0.35rem;">Completed Rides</div>
+                                <div style="font-size: 1.65rem; font-weight: 900; color: #16A34A; font-family: var(--font-mono);">72,840</div>
+                                <div style="font-size: 0.75rem; color: #16A34A; font-weight: 600; margin-top: 0.25rem;">72.8% fulfillment</div>
+                            </div>
+
+                            <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 1.15rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                                <div style="font-size: 0.6875rem; text-transform: uppercase; font-weight: 800; color: #64748B; margin-bottom: 0.35rem;">Cancelled Rides</div>
+                                <div style="font-size: 1.65rem; font-weight: 900; color: #DC2626; font-family: var(--font-mono);">27,160</div>
+                                <div style="font-size: 0.75rem; color: #DC2626; font-weight: 600; margin-top: 0.25rem;">27.2% dropout</div>
+                            </div>
+
+                            <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 1.15rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                                <div style="font-size: 0.6875rem; text-transform: uppercase; font-weight: 800; color: #64748B; margin-bottom: 0.35rem;">Cancellation Rate</div>
+                                <div style="font-size: 1.65rem; font-weight: 900; color: #D97706; font-family: var(--font-mono);">27.16%</div>
+                                <div style="font-size: 0.75rem; color: #64748B; margin-top: 0.25rem;">Fleet average</div>
+                            </div>
+
+                            <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 1.15rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                                <div style="font-size: 0.6875rem; text-transform: uppercase; font-weight: 800; color: #64748B; margin-bottom: 0.35rem;">Average Wait Time</div>
+                                <div style="font-size: 1.65rem; font-weight: 900; color: #EAB308; font-family: var(--font-mono);">8.4 min</div>
+                                <div style="font-size: 0.75rem; color: #64748B; margin-top: 0.25rem;">Arrival benchmark</div>
+                            </div>
+                        </div>
+
+                        <!-- Graphical Preview Grid -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.25rem;">
+                                <div style="font-size: 0.8125rem; font-weight: 800; color: #0F172A; margin-bottom: 1rem;">Booking Outcome Distribution</div>
+                                <div style="display: flex; align-items: center; justify-content: space-around; height: 160px;">
+                                    <div style="position: relative; width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(#16A34A 0% 72.8%, #DC2626 72.8% 100%); display: flex; align-items: center; justify-content: center;">
+                                        <div style="width: 80px; height: 80px; border-radius: 50%; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                                            <span style="font-size: 0.65rem; color: #64748B; font-weight: 700;">FULFILLED</span>
+                                            <span style="font-size: 0.95rem; font-weight: 900; color: #16A34A;">72.8%</span>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 0.8125rem; line-height: 2; font-weight: 600;">
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 10px; height: 10px; border-radius: 3px; background: #16A34A;"></span> Completed (72,840)</div>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;"><span style="width: 10px; height: 10px; border-radius: 3px; background: #DC2626;"></span> Cancelled (27,160)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.25rem;">
+                                <div style="font-size: 0.8125rem; font-weight: 800; color: #0F172A; margin-bottom: 0.75rem;">Hourly Cancellation Surge Trends</div>
+                                <div style="display: flex; align-items: flex-end; justify-content: space-between; height: 140px; padding-top: 1rem; border-bottom: 1px solid #E2E8F0;">
+                                    <div style="width: 7%; height: 35%; background: #FACC15; border-radius: 4px 4px 0 0;" title="06:00 - 15%"></div>
+                                    <div style="width: 7%; height: 50%; background: #FACC15; border-radius: 4px 4px 0 0;" title="07:00 - 22%"></div>
+                                    <div style="width: 7%; height: 85%; background: #DC2626; border-radius: 4px 4px 0 0;" title="08:00 Peak - 36%"></div>
+                                    <div style="width: 7%; height: 95%; background: #DC2626; border-radius: 4px 4px 0 0;" title="09:00 Peak - 42%"></div>
+                                    <div style="width: 7%; height: 60%; background: #EAB308; border-radius: 4px 4px 0 0;" title="10:00 - 25%"></div>
+                                    <div style="width: 7%; height: 40%; background: #FACC15; border-radius: 4px 4px 0 0;" title="12:00 - 18%"></div>
+                                    <div style="width: 7%; height: 75%; background: #D97706; border-radius: 4px 4px 0 0;" title="17:00 Evening - 30%"></div>
+                                    <div style="width: 7%; height: 90%; background: #DC2626; border-radius: 4px 4px 0 0;" title="18:00 Peak - 39%"></div>
+                                    <div style="width: 7%; height: 65%; background: #EAB308; border-radius: 4px 4px 0 0;" title="20:00 - 24%"></div>
+                                    <div style="width: 7%; height: 30%; background: #FACC15; border-radius: 4px 4px 0 0;" title="22:00 - 14%"></div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.6875rem; color: #64748B; margin-top: 0.5rem; font-family: var(--font-mono); font-weight: 600;">
+                                    <span>06:00</span>
+                                    <span>09:00 (Peak)</span>
+                                    <span>18:00 (Peak)</span>
+                                    <span>23:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PREVIEW TAB 2: AI PREDICTION & DIAGNOSTICS -->
+                    <div id="view-tab-prediction" class="preview-view-panel">
+                        <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 1.5rem;">
+                            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.25rem;">
+                                <div style="font-size: 0.8125rem; font-weight: 800; color: #0F172A; margin-bottom: 1rem;">Single-Trip Inference Dispatch</div>
+                                <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.8125rem;">
+                                    <div style="display: flex; justify-content: space-between; padding-bottom: 0.4rem; border-bottom: 1px solid #E2E8F0;">
+                                        <span style="color: #64748B;">Vehicle Type:</span>
+                                        <span style="color: #0F172A; font-weight: 700;">Sedan / Prime</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding-bottom: 0.4rem; border-bottom: 1px solid #E2E8F0;">
+                                        <span style="color: #64748B;">Estimated Delay:</span>
+                                        <span style="color: #DC2626; font-weight: 700;">14.2 min (Severe Choke)</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding-bottom: 0.4rem; border-bottom: 1px solid #E2E8F0;">
+                                        <span style="color: #64748B;">Surge Multiplier:</span>
+                                        <span style="color: #D97706; font-weight: 700;">1.8x Dynamic Price</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding-bottom: 0.4rem; border-bottom: 1px solid #E2E8F0;">
+                                        <span style="color: #64748B;">Driver Rating:</span>
+                                        <span style="color: #0F172A; font-weight: 700;">4.5★ (Average)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Decision Hero Banner & Recommended Action -->
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                    <div style="background: #FEF2F2; border: 2px solid #FCA5A5; border-radius: 14px; padding: 1.15rem;">
+                                        <div style="font-size: 0.6875rem; font-weight: 900; text-transform: uppercase; color: #DC2626;">WILL RIDE CANCEL?</div>
+                                        <div style="font-size: 1.85rem; font-weight: 900; color: #DC2626; margin-top: 0.25rem;">YES</div>
+                                        <div style="font-size: 0.75rem; color: #991B1B; font-weight: 600;">High Churn Probability</div>
+                                    </div>
+
+                                    <div style="background: #FEFCE8; border: 2px solid #FACC15; border-radius: 14px; padding: 1.15rem;">
+                                        <div style="font-size: 0.6875rem; font-weight: 900; text-transform: uppercase; color: #854D0E;">CONFIDENCE SCORE</div>
+                                        <div style="font-size: 1.85rem; font-weight: 900; color: #854D0E; font-family: var(--font-mono); margin-top: 0.25rem;">84.6%</div>
+                                        <div style="font-size: 0.75rem; color: #A16207; font-weight: 600;">Calibrated Ensemble</div>
+                                    </div>
+                                </div>
+
+                                <div style="background: #FEF9C3; border: 2px solid #EAB308; border-radius: 14px; padding: 1.15rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 900; text-transform: uppercase; color: #854D0E; margin-bottom: 0.5rem;">
+                                        <i data-lucide="shield-alert" class="w-4 h-4 text-yellow-700"></i>
+                                        <span>RECOMMENDED OPERATIONAL ACTION</span>
+                                    </div>
+                                    <p style="font-size: 0.8125rem; color: #0F172A; line-height: 1.5; font-weight: 600;">
+                                        Prioritize immediate nearby backup driver re-routing and smooth steep surge pricing to curb sticker-shock cancellations in this corridor.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PREVIEW TAB 3: MODEL BENCHMARK -->
+                    <div id="view-tab-models" class="preview-view-panel">
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 1rem;">
+                                <div style="font-size: 0.6875rem; color: #64748B; text-transform: uppercase; font-weight: 800;">Logistic Regression</div>
+                                <div style="font-size: 1.25rem; font-weight: 900; color: #0F172A; font-family: var(--font-mono); margin: 0.35rem 0;">0.74 ROC</div>
+                                <div style="font-size: 0.75rem; color: #64748B; font-weight: 600;">F1-Score: 0.68</div>
+                            </div>
+
+                            <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 1rem;">
+                                <div style="font-size: 0.6875rem; color: #64748B; text-transform: uppercase; font-weight: 800;">Decision Tree</div>
+                                <div style="font-size: 1.25rem; font-weight: 900; color: #0F172A; font-family: var(--font-mono); margin: 0.35rem 0;">0.71 ROC</div>
+                                <div style="font-size: 0.75rem; color: #64748B; font-weight: 600;">F1-Score: 0.65</div>
+                            </div>
+
+                            <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 1rem;">
+                                <div style="font-size: 0.6875rem; color: #64748B; text-transform: uppercase; font-weight: 800;">Random Forest</div>
+                                <div style="font-size: 1.25rem; font-weight: 900; color: #0F172A; font-family: var(--font-mono); margin: 0.35rem 0;">0.79 ROC</div>
+                                <div style="font-size: 0.75rem; color: #64748B; font-weight: 600;">F1-Score: 0.74</div>
+                            </div>
+
+                            <div style="background: linear-gradient(180deg, #FEFCE8 0%, #FFFFFF 100%); border: 2.5px solid #EAB308; border-radius: 14px; padding: 1rem; box-shadow: 0 4px 14px rgba(234, 179, 8, 0.2);">
+                                <div style="font-size: 0.6875rem; color: #854D0E; text-transform: uppercase; font-weight: 900;">XGBoost (Champion) ★</div>
+                                <div style="font-size: 1.25rem; font-weight: 900; color: #854D0E; font-family: var(--font-mono); margin: 0.35rem 0;">0.81 ROC</div>
+                                <div style="font-size: 0.75rem; color: #16A34A; font-weight: 800;">F1-Score: 0.76</div>
+                            </div>
+                        </div>
+
+                        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 1.25rem; text-align: center;">
+                            <div style="font-size: 0.8125rem; font-weight: 800; color: #0F172A; margin-bottom: 0.5rem;">Empirical Out-of-Sample Stratified Verification</div>
+                            <p style="font-size: 0.75rem; color: #64748B; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                                Every algorithm is trained strictly on pre-cancellation trip attributes and validated on unseen out-of-sample test records to guarantee zero data leakage.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Model & Risk Status Badge -->
+                <div class="floating-status-banner">
+                    <div style="width: 10px; height: 10px; border-radius: 50%; background: #16A34A; box-shadow: 0 0 10px #16A34A;"></div>
+                    <div style="font-size: 0.8125rem; font-family: var(--font-mono);">
+                        <strong style="color: #0F172A;">XGBoost Online</strong> &bull; <span style="color: #854D0E; font-weight: 700;">0.81 ROC-AUC Test Set</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 4: THE PROBLEM -->
+    <!-- ======================================================== -->
+    <section id="problem">
+        <div class="landing-container">
+            <div class="section-center">
+                <div class="section-tag">The Industry Challenge</div>
+                <h2 class="section-title">Why Traditional Fleets Suffer from Unseen Churn</h2>
+                <p class="section-subtitle">
+                    Ride-hailing companies leak upwards of 20–30% in potential gross bookings due to systemic friction points before and after ride dispatch.
+                </p>
+            </div>
+
+            <div class="problem-grid">
+                <!-- Card 1 -->
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <i data-lucide="user-x" class="w-6 h-6"></i>
+                    </div>
+                    <h3>Passenger Cancellations</h3>
+                    <p>
+                        Riders abandon trips when initial arrival ETAs balloon unexpectedly or steep price surge multipliers trigger sudden sticker-shock.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <i data-lucide="shield-x" class="w-6 h-6"></i>
+                    </div>
+                    <h3>Driver Dropout & Refusals</h3>
+                    <p>
+                        Drivers cancel when assigned pickups exceed economic distance thresholds, lead into deadhead zones, or coincide with heavy congestion.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <i data-lucide="clock" class="w-6 h-6"></i>
+                    </div>
+                    <h3>Long Waiting Times</h3>
+                    <p>
+                        Delays exceeding 7–10 minutes sharply increase dropout probability, degrading customer trust and driving lifetime churn.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="problem-card problem-card-wide">
+                    <div class="problem-icon">
+                        <i data-lucide="navigation-off" class="w-6 h-6"></i>
+                    </div>
+                    <h3>Traffic Bottlenecks & Spatial Asymmetries</h3>
+                    <p>
+                        Urban arterial congestion, bridge choke points, and bad weather unpredictably deform transit times, blindfolding conventional dispatch heuristics.
+                    </p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="problem-card problem-card-wide">
+                    <div class="problem-icon">
+                        <i data-lucide="trending-down" class="w-6 h-6"></i>
+                    </div>
+                    <h3>Operational Inefficiencies & Deadhead Miles</h3>
+                    <p>
+                        Failed dispatches waste driver fuel, inflate fleet carbon footprint, and squander dispatch capacity during high-demand peak hours.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 5: CORE CAPABILITIES -->
+    <!-- ======================================================== -->
+    <section id="capabilities">
+        <div class="landing-container">
+            <div class="section-center">
+                <div class="section-tag">Platform Architecture</div>
+                <h2 class="section-title">Four Pillars of Predictive Intelligence</h2>
+                <p class="section-subtitle">
+                    Engineered to replace reactive intuition with rigorous probabilistic modeling and verifiable game-theoretic explainability.
+                </p>
+            </div>
+
+            <div class="capabilities-grid">
+                <!-- Capability 1 -->
+                <div class="capability-card">
+                    <div class="capability-icon-box">
+                        <i data-lucide="cpu" class="w-7 h-7"></i>
+                    </div>
+                    <h3>Predictive Cancellation Intelligence</h3>
+                    <p>
+                        High-throughput machine learning inference evaluates trip parameters at the moment of request, generating immediate YES/NO cancellation verdicts, calibrated probability scores, and risk classifications.
+                    </p>
+                    <ul class="capability-features-list">
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Decisive Binary Verdict (Will Ride Cancel? YES / NO)</span>
+                        </li>
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Calibrated Confidence Percentage Score</span>
+                        </li>
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Pre-dispatch risk tiering (Low, Medium, High)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Capability 2 -->
+                <div class="capability-card">
+                    <div class="capability-icon-box">
+                        <i data-lucide="bar-chart-3" class="w-7 h-7"></i>
+                    </div>
+                    <h3>Cancellation Pattern Analytics</h3>
+                    <p>
+                        Comprehensive exploratory data analysis slices booking outcomes across fleet categories, geographical choke points, waiting time cohorts, and correlation matrices to isolate systemic leakages.
+                    </p>
+                    <ul class="capability-features-list">
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Vehicle Fleet Churn Breakdown (Sedan, SUV, Auto, Bike)</span>
+                        </li>
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Top Pickup Location Risk Ranking</span>
+                        </li>
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Waiting Delay Impact Cohort Modeling</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Capability 3 -->
+                <div class="capability-card">
+                    <div class="capability-icon-box">
+                        <i data-lucide="eye" class="w-7 h-7"></i>
+                    </div>
+                    <h3>Explainable AI using SHAP</h3>
+                    <p>
+                        Eliminate black-box opacity. RideGuard AI uses cooperative game-theoretic Shapley Additive Explanations (SHAP) to calculate the exact mathematical contribution of every feature pushing a trip toward cancellation.
+                    </p>
+                    <ul class="capability-features-list">
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Global Mean |SHAP| Feature Importance Rankings</span>
+                        </li>
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Live Single-Prediction Factor Attribution Breakdown</span>
+                        </li>
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>True marginal weights for surge, delay, and driver score</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Capability 4 -->
+                <div class="capability-card">
+                    <div class="capability-icon-box">
+                        <i data-lucide="target" class="w-7 h-7"></i>
+                    </div>
+                    <h3>Intelligent Policy Recommendations</h3>
+                    <p>
+                        Empirical insight translated directly into operational policy. RideGuard AI automatically mines temporal, spatial, and delay cohorts to propose prioritized, evidence-backed fleet interventions.
+                    </p>
+                    <ul class="capability-features-list">
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Surge Multiplier & Pre-Peak Positioning Policies</span>
+                        </li>
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Waiting Time Threshold Intervention Triggers</span>
+                        </li>
+                        <li class="capability-feature-item">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>Driver Supply Rebalancing for High-Drop Hubs</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 6: HOW IT WORKS (7-STEP PIPELINE) -->
+    <!-- ======================================================== -->
+    <section id="how-it-works">
+        <div class="landing-container">
+            <div class="section-center">
+                <div class="section-tag">End-to-End Workflow</div>
+                <h2 class="section-title">From Raw CSV to Fleet Intelligence</h2>
+                <p class="section-subtitle">
+                    A rigorous 7-stage machine learning pipeline engineered with strict data leakage prevention and mathematical transparency.
+                </p>
+            </div>
+
+            <div class="pipeline-wrapper">
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-grid">
+                    <!-- Step 1 -->
+                    <div class="pipeline-step-card">
+                        <div class="step-num-bubble">01</div>
+                        <h4>Upload CSV Dataset</h4>
+                        <p>Drag & drop historical ride records or select sample repository data.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="pipeline-step-card">
+                        <div class="step-num-bubble">02</div>
+                        <h4>Data Validation</h4>
+                        <p>Automated null audit, schema mapping, and class distribution checks.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="pipeline-step-card">
+                        <div class="step-num-bubble">03</div>
+                        <h4>Preprocessing</h4>
+                        <p>One-hot encoding, scaling, and strict post-cancellation feature removal.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="pipeline-step-card">
+                        <div class="step-num-bubble">04</div>
+                        <h4>ML Model Training</h4>
+                        <p>Automated training across 4 algorithms with 80/20 stratified split.</p>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="pipeline-step-card">
+                        <div class="step-num-bubble">05</div>
+                        <h4>Cancellation Prediction</h4>
+                        <p>Real-time scoring producing binary YES/NO decision and confidence.</p>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="pipeline-step-card">
+                        <div class="step-num-bubble">06</div>
+                        <h4>SHAP Explanation</h4>
+                        <p>Cooperative game-theoretic attribution allocating exact factor weights.</p>
+                    </div>
+
+                    <!-- Step 7 -->
+                    <div class="pipeline-step-card">
+                        <div class="step-num-bubble">07</div>
+                        <h4>Intelligent Policies</h4>
+                        <p>Evidence-backed dispatch recommendations to curb network churn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 7: MACHINE LEARNING TECHNOLOGY -->
+    <!-- ======================================================== -->
+    <section id="technology">
+        <div class="landing-container">
+            <div class="section-center">
+                <div class="section-tag">Empirical Rigor</div>
+                <h2 class="section-title">Multi-Algorithm Benchmarking</h2>
+                <p class="section-subtitle">
+                    RideGuard AI never relies on a single speculative algorithm. Multiple candidate architectures are systematically trained, evaluated, and ranked to designate the verified champion.
+                </p>
+            </div>
+
+            <!-- 4 Model Architecture Cards -->
+            <div class="models-grid">
+                <!-- Model 1 -->
+                <div class="tech-model-card">
+                    <span class="model-badge-type">Linear Baseline</span>
+                    <h3>Logistic Regression</h3>
+                    <p>
+                        High-efficiency parametric classifier utilizing logit transformations to establish baseline odds-ratio linear decision boundaries.
+                    </p>
+                    <div class="model-highlight-box">
+                        Features: L2 Regularization, Scaled Standard Coeffs
+                    </div>
+                </div>
+
+                <!-- Model 2 -->
+                <div class="tech-model-card">
+                    <span class="model-badge-type">Tree Structure</span>
+                    <h3>Decision Tree</h3>
+                    <p>
+                        Non-linear hierarchical recursive partitioning that splits feature spaces based on Gini impurity to reveal critical operational thresholds.
+                    </p>
+                    <div class="model-highlight-box">
+                        Features: Depth-Controlled, Exact Threshold Splits
+                    </div>
+                </div>
+
+                <!-- Model 3 -->
+                <div class="tech-model-card">
+                    <span class="model-badge-type">Bagging Ensemble</span>
+                    <h3>Random Forest</h3>
+                    <p>
+                        Ensemble bootstrap aggregation of hundreds of de-correlated decision trees, reducing overall variance and mitigating overfitting.
+                    </p>
+                    <div class="model-highlight-box">
+                        Features: Sub-Feature Sampling, Robust Outliers
+                    </div>
+                </div>
+
+                <!-- Model 4 -->
+                <div class="tech-model-card">
+                    <span class="model-badge-type">Boosting Champion</span>
+                    <h3>XGBoost</h3>
+                    <p>
+                        Extreme gradient boosting optimizing second-order Taylor approximations of loss functions with regularized tree complexity penalties.
+                    </p>
+                    <div class="model-highlight-box">
+                        Features: Gradient Tree Boosting, Early Stopping
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spotlight on SHAP Game Theory -->
+            <div class="shap-spotlight-box">
+                <div>
+                    <div class="section-tag" style="margin-bottom: 0.75rem;">Game-Theoretic Explainability</div>
+                    <h3 style="font-size: 1.75rem; font-weight: 900; color: #0F172A; margin-bottom: 1rem;">
+                        No Black Boxes. Total Mathematical Transparency.
+                    </h3>
+                    <p style="font-size: 0.9375rem; color: #475569; line-height: 1.7; margin-bottom: 1.5rem;">
+                        By employing Shapley Additive Explanations derived from Nobel Prize-winning cooperative game theory, RideGuard AI assigns each dispatch attribute a payout proportional to its marginal contribution toward the prediction. Fleet operators can clearly explain every decision to dispatch teams and regulators.
+                    </p>
+                    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.8125rem; font-family: var(--font-mono); color: #854D0E; font-weight: 700;">
+                        <div>✓ TreeExplainer for XGBoost</div>
+                        <div>✓ LinearExplainer for Logistic Reg</div>
+                        <div>✓ Local & Global Symmetry</div>
+                    </div>
+                </div>
+
+                <div style="background: #FFFFFF; border: 2px solid #E2E8F0; border-radius: 18px; padding: 1.5rem; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #0F172A; text-transform: uppercase; margin-bottom: 0.75rem;">Sample Feature Marginal Impact</div>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.75rem; font-family: var(--font-mono); font-weight: 600;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                <span style="color: #334155;">Traffic Delay</span>
+                                <span style="color: #DC2626;">+0.293 SHAP</span>
+                            </div>
+                            <div style="width: 100%; height: 5px; background: #F1F5F9; border-radius: 3px;">
+                                <div style="width: 82%; height: 100%; background: #DC2626; border-radius: 3px;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                <span style="color: #334155;">Surge Multiplier</span>
+                                <span style="color: #D97706;">+0.168 SHAP</span>
+                            </div>
+                            <div style="width: 100%; height: 5px; background: #F1F5F9; border-radius: 3px;">
+                                <div style="width: 58%; height: 100%; background: #F59E0B; border-radius: 3px;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                <span style="color: #334155;">Driver 5★ Rating</span>
+                                <span style="color: #16A34A;">-0.103 SHAP</span>
+                            </div>
+                            <div style="width: 100%; height: 5px; background: #F1F5F9; border-radius: 3px;">
+                                <div style="width: 36%; height: 100%; background: #16A34A; border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 8: FINAL CTA (WARM GOLDEN YELLOW) -->
+    <!-- ======================================================== -->
+    <section id="cta">
+        <div class="landing-container">
+            <div class="cta-box">
+                <div class="section-tag pulse-dot" style="margin-bottom: 1.25rem;">Enterprise Fleet Ready</div>
+                <h2 class="cta-headline">Make Every Ride More Predictable.</h2>
+                <p class="cta-subtitle">
+                    Start transforming historical ride data into intelligent operational insights today with RideGuard AI.
+                </p>
+                <div class="cta-actions">
+                    <a href="/app" class="btn-primary btn-lg" id="cta-btn-launch">
+                        <i data-lucide="shield-check" class="w-5 h-5 text-white"></i>
+                        <span>Launch RideGuard AI</span>
+                    </a>
+                    <a href="/docs" target="_blank" class="btn-secondary btn-lg" id="cta-btn-api">
+                        <i data-lucide="book-open" class="w-5 h-5 text-slate-800"></i>
+                        <span>Interactive API Docs</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 9: FOOTER -->
+    <!-- ======================================================== -->
+    <footer class="footer">
+        <div class="landing-container">
+            <div class="footer-grid">
+                <!-- Col 1: Brand Info -->
+                <div class="footer-col">
+                    <a href="#hero" class="brand-logo" style="margin-bottom: 1rem;">
+                        <div class="brand-icon-wrapper" style="width: 34px; height: 34px;">
+                            <i data-lucide="shield" class="w-4 h-4 text-slate-900 fill-slate-900"></i>
+                        </div>
+                        <div class="brand-text">
+                            RIDEGUARD <span>AI</span>
+                        </div>
+                    </a>
+                    <p>
+                        Enterprise-grade predictive mobility intelligence platform engineered to diagnose, forecast, and reduce ride cancellation rates through explainable machine learning.
+                    </p>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div class="footer-col">
+                    <h5>Platform</h5>
+                    <ul class="footer-links">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#capabilities">Core Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#technology">ML Technology</a></li>
+                        <li><a href="/app">Launch Console</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Technology Stack -->
+                <div class="footer-col">
+                    <h5>Technology</h5>
+                    <ul class="footer-links">
+                        <li><a href="/docs" target="_blank">FastAPI REST Engine</a></li>
+                        <li><a href="#technology">XGBoost & Random Forest</a></li>
+                        <li><a href="#technology">SHAP Game Theory</a></li>
+                        <li><a href="#technology">Plotly Analytics</a></li>
+                        <li><a href="#technology">Three.js 3D WebGL</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Project Info -->
+                <div class="footer-col">
+                    <h5>Engineering</h5>
+                    <ul class="footer-links">
+                        <li><a href="#about" class="btn-open-about">Project Thesis</a></li>
+                        <li><a href="#about" class="btn-open-about">Architecture Overview</a></li>
+                        <li><a href="#about" class="btn-open-about">System Telemetry</a></li>
+                        <li><a href="/docs" target="_blank">Swagger OpenAPI</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>
+                    &copy; 2026 RideGuard AI &bull; Predictive Mobility Intelligence Platform. All rights reserved.
+                </div>
+                <div>
+                    Built for Intelligent Fleet Operations & Next-Gen Urban Mobility
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 10: ABOUT MODAL / DRAWER -->
+    <!-- ======================================================== -->
+    <div id="about-modal" class="about-modal" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
+        <div class="about-modal-card">
+            <button id="btn-close-about" class="modal-close-btn" aria-label="Close Modal">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="section-tag" style="margin-bottom: 0.75rem;">System Architecture</div>
+            <h3 id="about-modal-title" style="font-size: 1.65rem; font-weight: 800; color: #0F172A; margin-bottom: 1.25rem;">
+                About RideGuard AI
+            </h3>
+
+            <div style="font-size: 0.875rem; color: #475569; line-height: 1.7;">
+                <p style="margin-bottom: 1rem;">
+                    <strong>RideGuard AI</strong> is an enterprise-grade predictive mobility intelligence platform designed to address one of the most persistent bottlenecks in urban ride-hailing: <em>unpredicted ride cancellations</em>.
+                </p>
+
+                <p style="margin-bottom: 1rem;">
+                    Traditional dispatch algorithms treat cancellations reactively. RideGuard AI bridges this deficit by learning historical patterns across trip attributes—including traffic congestion, surge multipliers, pickup delay cohorts, and driver ratings—to generate probabilistic cancellation risk assessments prior to dispatch.
+                </p>
+
+                <h4 style="font-size: 1rem; font-weight: 800; color: #0F172A; margin: 1.5rem 0 0.5rem;">Core Design Principles</h4>
+                <ul style="list-style: disc; padding-left: 1.25rem; margin-bottom: 1.25rem;">
+                    <li><strong>Zero Mock Data:</strong> Functions entirely upon real user-uploaded CSV datasets with automated schema mapping and null audit.</li>
+                    <li><strong>No Data Leakage:</strong> Post-cancellation variables (such as cancellation reason codes) are strictly isolated from the training feature set.</li>
+                    <li><strong>Competitive Algorithm Benchmarking:</strong> Simultaneously trains Logistic Regression, Decision Tree, Random Forest, and XGBoost, selecting the champion based on empirical out-of-sample test ROC-AUC and F1-score.</li>
+                    <li><strong>Cooperative Game Theory:</strong> Employs SHAP (Shapley Additive Explanations) so every prediction can be inspected down to exact marginal weights.</li>
+                </ul>
+
+                <h4 style="font-size: 1rem; font-weight: 800; color: #0F172A; margin: 1.5rem 0 0.5rem;">Technology Stack</h4>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                    <span style="background: #FEF9C3; border: 1px solid #FEF08A; padding: 0.3rem 0.65rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: #854D0E; font-weight: 700;">FastAPI</span>
+                    <span style="background: #FEF9C3; border: 1px solid #FEF08A; padding: 0.3rem 0.65rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: #854D0E; font-weight: 700;">Three.js 3D</span>
+                    <span style="background: #FEF9C3; border: 1px solid #FEF08A; padding: 0.3rem 0.65rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: #854D0E; font-weight: 700;">Scikit-Learn</span>
+                    <span style="background: #FEF9C3; border: 1px solid #FEF08A; padding: 0.3rem 0.65rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: #854D0E; font-weight: 700;">XGBoost</span>
+                    <span style="background: #FEF9C3; border: 1px solid #FEF08A; padding: 0.3rem 0.65rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: #854D0E; font-weight: 700;">SHAP</span>
+                    <span style="background: #FEF9C3; border: 1px solid #FEF08A; padding: 0.3rem 0.65rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: #854D0E; font-weight: 700;">Plotly.js</span>
+                    <span style="background: #FEF9C3; border: 1px solid #FEF08A; padding: 0.3rem 0.65rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: #854D0E; font-weight: 700;">GSAP 3</span>
+                </div>
+
+                <div style="text-align: right; padding-top: 1rem; border-top: 1px solid #E2E8F0;">
+                    <a href="/app" class="btn-primary" style="display: inline-flex;">
+                        <span>Open Application Console</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 text-slate-900"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Landing Page Script with Three.js 3D Scene -->
+    <script src="/static/js/landing.js"></script>
+</body>
+</html>
